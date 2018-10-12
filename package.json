@@ -16,9 +16,10 @@
   "author": "Rob Lourens",
   "license": "MIT",
   "dependencies": {
-    "git": "^0.1.5",
+    "@octokit/rest": "^15.13.1",
+    "decompress": "^4.2.0",
+    "decompress-unzip": "^4.0.1",
     "github-releases": "^0.4.1",
-    "got": "^9.2.2",
     "mkdirp": "^0.5.1",
     "progress": "^2.0.0",
     "rimraf": "^2.6.1",

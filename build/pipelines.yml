@@ -1,5 +1,4 @@
 jobs:
-  - job: Linux
-    template: linux.yml
+  - template: linux.yml
 trigger:
   - az-pipelines

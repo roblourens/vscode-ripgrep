@@ -2,6 +2,7 @@ jobs:
 - job: Linux 64
   pool:
     vmImage: 'ubuntu-16.04'
-  steps: linux.yml
+  steps:
+    - template: linux.yml
 trigger:
 - az-pipelines

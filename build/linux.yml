@@ -1,5 +1,6 @@
 jobs:
-- pool:
+- job: Linux 64
+  pool:
     vmImage: 'ubuntu-16.04'
   steps:
   - script: |

@@ -1,7 +1,7 @@
 steps:
 - script: |
     sudo apt-get update
-    sudo apt-get install -y musl-gcc
+    sudo apt-get install -y musl-tools
 - template: install_rust.yml
   parameters:
     rustup_toolchain: nightly

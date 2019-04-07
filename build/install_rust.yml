@@ -6,7 +6,7 @@ steps:
     displayName: Windows install rust
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
   - script: |
-     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain $RUSTUP_TOOLCHAIN
+     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
      echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
     displayName: Install rust
     condition: ne( variables['Agent.OS'], 'Windows_NT' )

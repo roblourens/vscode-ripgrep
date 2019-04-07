@@ -1,16 +1,12 @@
-jobs:
-- job: Linux 64
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: |
-      export RUSTUP_TOOLCHAIN=nightly
-  - template: install_rust.yml
-  - template: clone_ripgrep.yml
-  - script: |
-      export PCRE2_SYS_STATIC=1
-      cd ripgrep
-      rustup target add x86_64-unknown-linux-musl
-      cargo build --release --target=x86_64-unknown-linux-musl --features 'pcre2'
-      strip ./target/x86_64-unknown-linux-musl/release/rg
-      zip -j "ripgrep-linux-x64.zip" ./target/x86_64-unknown-linux-musl/release/rg
+steps:
+- script: |
+    export RUSTUP_TOOLCHAIN=nightly
+- template: install_rust.yml
+- template: clone_ripgrep.yml
+- script: |
+    export PCRE2_SYS_STATIC=1
+    cd ripgrep
+    rustup target add x86_64-unknown-linux-musl
+    cargo build --release --target=x86_64-unknown-linux-musl --features 'pcre2'
+    strip ./target/x86_64-unknown-linux-musl/release/rg
+    zip -j "ripgrep-linux-x64.zip" ./target/x86_64-unknown-linux-musl/release/rg

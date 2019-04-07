@@ -2,6 +2,8 @@ steps:
 - script: |
     export RUSTUP_TOOLCHAIN=nightly
 - template: install_rust.yml
+  parameters:
+    rustup_toolchain: nightly
 - template: clone_ripgrep.yml
 - script: |
     export PCRE2_SYS_STATIC=1

@@ -1,0 +1,5 @@
+steps:
+  - script: |
+    git clone https://github.com/BurntSushi/ripgrep.git
+    cd ripgrep
+    git checkout 0.10.0

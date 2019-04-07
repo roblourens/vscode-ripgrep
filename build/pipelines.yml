@@ -1,0 +1,13 @@
+jobs:
+# - job: macOS
+#   template: job.yml
+#   parameters:
+#     vmImage: 'macOS-10.13'
+
+- job: Linux
+  template: linux.yml
+
+# - job: Windows
+#   template: job.yml
+#   parameters:
+#     vmImage: 'vs2017-win2016'

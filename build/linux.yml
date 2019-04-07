@@ -2,6 +2,7 @@ steps:
 - script: |
     sudo apt-get update
     sudo apt-get install -y musl-tools
+  displayName: Install dependencies
 - template: install_rust.yml
   parameters:
     rustup_toolchain: nightly
@@ -14,3 +15,12 @@ steps:
     strip ./target/x86_64-unknown-linux-musl/release/rg
     zip -j "ripgrep-linux-x64.zip" ./target/x86_64-unknown-linux-musl/release/rg
   displayName: Build
+- task: GitHubRelease@0
+  inputs:
+    gitHubConnection: GitHub
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'auto'
+    assets: '$(Build.ArtifactStagingDirectory)/*'
+    isDraft: true

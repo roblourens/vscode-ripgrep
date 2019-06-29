@@ -20,16 +20,20 @@ mk_artifacts() {
 }
 
 mk_tarball() {
+    pushd ..
+    THIS_TAG=`git tag -l --contains HEAD`
+    popd
+
     # When cross-compiling, use the right `strip` tool on the binary.
     local gcc_prefix="$(gcc_prefix)"
     # Create a temporary dir that contains our staging area.
     # $tmpdir/$name is what eventually ends up as the deployed archive.
     local tmpdir="$(mktemp -d)"
-    local name="${PROJECT_NAME}-${TRAVIS_TAG}-${TARGET}"
+    local name="ripgrep-${THIS_TAG}-${TARGET}"
     local staging="$tmpdir/$name"
     mkdir -p "$staging"/{complete,doc}
     # The deployment directory is where the final archive will reside.
-    # This path is known by the .travis.yml configuration.
+    # This path is known by the configuration.
     local out_dir="$(pwd)/deployment"
     mkdir -p "$out_dir"
     # Find the correct (most recent) Cargo "out" directory. The out directory

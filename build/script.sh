@@ -7,18 +7,14 @@ set -ex
 
 . "$(dirname $0)/utils.sh"
 
-faketty () {
-    script -qefc "$(printf "%q " "$@")"
-}
-
 main() {
     CARGO="$(builder)"
 
     # Test a normal debug build.
-    if is_arm; then
+    if is_arm || is_aarch64; then
         "$CARGO" build --target "$TARGET" --verbose
     else
-        faketty $CARGO build --target $TARGET --verbose --all --features pcre2
+        "$CARGO" build --target "$TARGET" --verbose --all --features 'pcre2'
     fi
 
     # Show the output of the most recent build.rs stderr.
@@ -36,7 +32,7 @@ main() {
 
     # Apparently tests don't work on arm, so just bail now. I guess we provide
     # ARM releases on a best effort basis?
-    if is_arm; then
+    if is_arm || is_aarch64; then
       return 0
     fi
 

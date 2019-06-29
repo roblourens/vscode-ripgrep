@@ -39,6 +39,9 @@ architecture() {
         arm*-unknown-linux-gnueabihf)
             echo armhf
             ;;
+        aarch64-unknown-linux-gnu)
+            echo aarch64
+            ;;
         *)
             die "architecture: unexpected target $TARGET"
             ;;
@@ -80,6 +83,13 @@ is_x86_64() {
 is_arm() {
     case "$(architecture)" in
         armhf) return 0 ;;
+        *)     return 1 ;;
+    esac
+}
+
+is_aarch64() {
+    case "$(architecture)" in
+        aarch64) return 0 ;;
         *)     return 1 ;;
     esac
 }

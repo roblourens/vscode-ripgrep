@@ -1,7 +1,7 @@
 parameters:
   target: ''
   gcc_version: ''
-  rust_versin: ''
+  rust_version: 'nightly'
 
 steps:
 - template: clone_ripgrep.yml
@@ -15,7 +15,6 @@ steps:
   env:
     TARGET: ${{ parameters.target }}
   displayName: Build
-  condition: ne( variables['Agent.OS'], 'Windows_NT' )
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: GitHub

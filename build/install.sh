@@ -47,6 +47,10 @@ install_linux_dependencies() {
         sudo apt-get install libc6-armhf-cross
         sudo apt-get install libc6-dev-armhf-cross
     fi
+
+    if is_aarch64; then
+        sudo apt-get install gcc-4.8-aarch64-linux-gnu
+    fi
 }
 
 configure_cargo() {

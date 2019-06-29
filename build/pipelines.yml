@@ -5,7 +5,7 @@ jobs:
   steps:
     - template: linux.yml
       parameters:
-        target: i686-unknown-linux-musl
+        target: x86_64-unknown-linux-musl
         rust_version: nightly
 - job: Linux_32
   pool:
@@ -13,7 +13,7 @@ jobs:
   steps:
     - template: linux.yml
       parameters:
-        target: x86_64-unknown-linux-musl
+        target: i686-unknown-linux-musl
         rust_version: nightly
 - job: Linux_ARM
   pool:

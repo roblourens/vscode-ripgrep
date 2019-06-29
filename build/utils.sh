@@ -101,7 +101,7 @@ is_osx() {
 builder() {
     if is_musl && is_x86_64; then
         cargo install cross
-        echo "cross"
+        echo "cargo"
     else
         echo "cargo"
     fi

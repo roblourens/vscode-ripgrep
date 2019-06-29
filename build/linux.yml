@@ -6,15 +6,15 @@ parameters:
 steps:
 - template: clone_ripgrep.yml
 - script: build/install.sh
-    env:
-      RUST_VERSION: ${{ parameters.rust_version }}
-      TARGET: ${{ parameters.target }}
-    displayName: Install Rust
+  env:
+    RUST_VERSION: ${{ parameters.rust_version }}
+    TARGET: ${{ parameters.target }}
+  displayName: Install Rust
 - script: build/script.sh
-    env:
-      TARGET: ${{ parameters.target }}
-    displayName: Build
-    condition: ne( variables['Agent.OS'], 'Windows_NT' )
+  env:
+    TARGET: ${{ parameters.target }}
+  displayName: Build
+  condition: ne( variables['Agent.OS'], 'Windows_NT' )
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: GitHub

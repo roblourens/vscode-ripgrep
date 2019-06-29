@@ -8,7 +8,7 @@ set -ex
 . "$(dirname $0)/utils.sh"
 
 faketty () {
-    script -qfce "$(printf "%q " "$@")"
+    script -qefc "$(printf "%q " "$@")"
 }
 
 main() {

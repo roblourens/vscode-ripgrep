@@ -63,7 +63,7 @@ configure_cargo() {
 
         # tell cargo which linker to use for cross compilation
         mkdir -p .cargo
-        cat >>.cargo/config <<EOF
+        cat >> .cargo/config <<EOF
 [target.$TARGET]
 linker = "${gcc}"
 EOF

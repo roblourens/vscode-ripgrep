@@ -14,6 +14,7 @@ install_rustup() {
     curl https://sh.rustup.rs -sSf \
       | sh -s -- -y --default-toolchain="$RUST_VERSION"
     source /usr/local/cargo/env
+    rustup default nightly
     rustc -V
     cargo -V
 }

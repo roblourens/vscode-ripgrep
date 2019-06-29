@@ -4,5 +4,22 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
     - template: linux.yml
+      parameters:
+        target: i686-unknown-linux-musl
+- job: Linux_32
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+    - template: linux.yml
+      parameters:
+        target: x86_64-unknown-linux-musl
+- job: Linux_ARM
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+    - template: linux.yml
+      parameters:
+        target: arm-unknown-linux-gnueabihf
+        gcc_version: 4.8
 trigger:
 - az-pipelines

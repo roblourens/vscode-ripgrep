@@ -6,10 +6,10 @@ steps:
      curl -sSf -o rustup-init.exe https://win.rustup.rs
      rustup-init.exe -y --default-toolchain ${{ parameters.rustup_toolchain }}
      echo "##vso[task.setvariable variable=PATH;]%PATH%;%USERPROFILE%\.cargo\bin"
-    displayName: Windows install rust
+    displayName: Install Rust, Windows
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
-  - script: |
-     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain ${{ parameters.rustup_toolchain }}
-     echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
-    displayName: Install rust
+  - script: install.sh
+    env:
+      RUST_VERSION: ${{ parameters.rustup_toolchain }}
+    displayName: Install Rust, Non-Windows
     condition: ne( variables['Agent.OS'], 'Windows_NT' )

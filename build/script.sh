@@ -14,7 +14,7 @@ main() {
     if is_arm; then
         "$CARGO" build --target "$TARGET" --verbose
     else
-        "$CARGO" build --target "$TARGET" --verbose --all --features 'pcre2'
+        bash -ic "$CARGO build --target "$TARGET" --verbose --all --features 'pcre2'"
     fi
 
     # Show the output of the most recent build.rs stderr.

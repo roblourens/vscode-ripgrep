@@ -32,7 +32,7 @@ install_osx_dependencies() {
     brew install asciidoc docbook-xsl
 }
 
-install_dependencies() {
+install_linux_dependencies() {
     if ! is_linux; then
         return
     fi
@@ -41,6 +41,7 @@ install_dependencies() {
 
     if is_arm; then
         sudo apt-get install gcc-4.8-arm-linux-gnueabihf
+        sudo apt-get install gcc-arm-linux-gnueabihf
         sudo apt-get install binutils-arm-linux-gnueabihf
         sudo apt-get install libc6-armhf-cross
         sudo apt-get install libc6-dev-armhf-cross
@@ -71,7 +72,7 @@ EOF
 main() {
     printenv
 
-    install_dependencies
+    install_linux_dependencies
     install_osx_dependencies
     install_rustup
     install_targets

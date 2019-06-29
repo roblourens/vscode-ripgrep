@@ -11,6 +11,7 @@ steps:
     TARGET: ${{ parameters.target }}
   displayName: Install Rust
 - script: build/script.sh
+  workingDirectory: ripgrep
   env:
     TARGET: ${{ parameters.target }}
   displayName: Build

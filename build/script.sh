@@ -7,6 +7,10 @@ set -ex
 
 . "$(dirname $0)/utils.sh"
 
+faketty () {
+    script -qfce "$(printf "%q " "$@")"
+}
+
 main() {
     CARGO="$(builder)"
 
@@ -14,7 +18,7 @@ main() {
     if is_arm; then
         "$CARGO" build --target "$TARGET" --verbose
     else
-        bash -ic "$CARGO build --target "$TARGET" --verbose --all --features 'pcre2'"
+        faketty "$CARGO build --target "$TARGET" --verbose --all --features 'pcre2'"
     fi
 
     # Show the output of the most recent build.rs stderr.

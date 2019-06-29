@@ -1,5 +1,7 @@
 steps:
   - script: |
+      set -ex
+
       REPO=$(node -p "require('./package.json').ripgrepRepo")
       TREEISH=$(node -p "require('./package.json').ripgrepTreeish")
       git clone https://github.com/${REPO}.git

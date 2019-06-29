@@ -19,7 +19,7 @@ cargo_out_dir() {
 
 host() {
     case "$AGENT_OS" in
-        linux)
+        Linux)
             echo x86_64-unknown-linux-gnu
             ;;
         osx)
@@ -86,7 +86,7 @@ is_arm() {
 
 is_linux() {
     case "$AGENT_OS" in
-        linux) return 0 ;;
+        Linux) return 0 ;;
         *)     return 1 ;;
     esac
 }

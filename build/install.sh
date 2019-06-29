@@ -13,6 +13,7 @@ set -ex
 install_rustup() {
     curl https://sh.rustup.rs -sSf \
       | sh -s -- -y --default-toolchain="$RUST_VERSION"
+    source /usr/local/cargo/env
     rustc -V
     cargo -V
 }

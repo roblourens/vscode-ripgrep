@@ -7,6 +7,7 @@ steps:
 - template: install_rust.yml
   parameters:
     rustup_toolchain: nightly
+    target: ${{ parameters.target }}
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: GitHub

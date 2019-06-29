@@ -1,13 +1,20 @@
 parameters:
   target: ''
   gcc_version: ''
+  rust_versin: ''
 
 steps:
 - template: clone_ripgrep.yml
-- template: install_rust.yml
-  parameters:
-    rustup_toolchain: nightly
-    target: ${{ parameters.target }}
+- script: build/install.sh
+    env:
+      RUST_VERSION: ${{ parameters.rust_version }}
+      TARGET: ${{ parameters.target }}
+    displayName: Install Rust
+- script: build/script.sh
+    env:
+      TARGET: ${{ parameters.target }}
+    displayName: Build
+    condition: ne( variables['Agent.OS'], 'Windows_NT' )
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: GitHub

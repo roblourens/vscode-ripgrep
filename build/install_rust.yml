@@ -9,9 +9,3 @@ steps:
      echo "##vso[task.setvariable variable=PATH;]%PATH%;%USERPROFILE%\.cargo\bin"
     displayName: Install Rust, Windows
     condition: eq( variables['Agent.OS'], 'Windows_NT' )
-  - script: build/install.sh
-    env:
-      RUST_VERSION: ${{ parameters.rustup_toolchain }}
-      TARGET: ${{ parameters.target }}
-    displayName: Install Rust, Non-Windows
-    condition: ne( variables['Agent.OS'], 'Windows_NT' )

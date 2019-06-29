@@ -6,6 +6,7 @@ jobs:
     - template: linux.yml
       parameters:
         target: i686-unknown-linux-musl
+        rust_version: nightly
 - job: Linux_32
   pool:
     vmImage: 'ubuntu-16.04'
@@ -13,6 +14,7 @@ jobs:
     - template: linux.yml
       parameters:
         target: x86_64-unknown-linux-musl
+        rust_version: nightly
 - job: Linux_ARM
   pool:
     vmImage: 'ubuntu-16.04'
@@ -20,6 +22,7 @@ jobs:
     - template: linux.yml
       parameters:
         target: arm-unknown-linux-gnueabihf
+        rust_version: nightly
         gcc_version: 4.8
 trigger:
 - az-pipelines

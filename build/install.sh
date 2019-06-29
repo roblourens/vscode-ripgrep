@@ -68,6 +68,8 @@ EOF
 }
 
 main() {
+    printenv
+
     install_dependencies
     install_osx_dependencies
     install_rustup

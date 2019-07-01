@@ -1,0 +1,27 @@
+parameters:
+  target: ''
+  gcc_version: ''
+  rust_version: 'nightly'
+
+steps:
+- template: clone_ripgrep.yml
+- script: build/install.sh
+  env:
+    RUST_VERSION: ${{ parameters.rust_version }}
+    TARGET: ${{ parameters.target }}
+    GCC_VERSION: ${{ parameters.gcc_version }}
+  displayName: Install Rust
+- script: ../build/script.sh
+  workingDirectory: ripgrep
+  env:
+    TARGET: ${{ parameters.target }}
+  displayName: Build
+- task: GitHubRelease@0
+  inputs:
+    gitHubConnection: GitHub
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'auto'
+    assets: '$(Build.ArtifactStagingDirectory)/*'
+    isDraft: true

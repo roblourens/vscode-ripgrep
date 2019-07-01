@@ -3,6 +3,10 @@
 
 # Various utility functions used through CI.
 
+if [ -f $HOME/.cargo/env ]; then
+    source $HOME/.cargo/env
+fi
+
 # Finds Cargo's `OUT_DIR` directory from the most recent build.
 #
 # This requires one parameter corresponding to the target directory

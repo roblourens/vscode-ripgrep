@@ -36,5 +36,12 @@ jobs:
     - template: linux.yml
       parameters:
         target: x86_64-apple-darwin
+- job: Windows 64
+  pool:
+    vmImage: VS2017-Win2016
+  steps:
+    - template: windows.yml
+      parameters:
+        target: x86_64-pc-windows-msvc
 trigger:
 - az-pipelines

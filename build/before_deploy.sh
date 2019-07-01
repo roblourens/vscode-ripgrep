@@ -21,42 +21,26 @@ mk_artifacts() {
 
 mk_tarball() {
     pushd ..
-    THIS_TAG=`git tag -l --contains HEAD`
+    this_tag=`git tag -l --contains HEAD`
+    if [ -z $this_tag ]; then
+        this_tag='test'
+    fi
     popd
 
     # When cross-compiling, use the right `strip` tool on the binary.
     local gcc_prefix="$(gcc_prefix)"
-    # Create a temporary dir that contains our staging area.
-    # $tmpdir/$name is what eventually ends up as the deployed archive.
-    local tmpdir="$(mktemp -d)"
-    local name="ripgrep-${THIS_TAG}-${TARGET}"
-    local staging="$tmpdir/$name"
-    mkdir -p "$staging"/{complete,doc}
+
+    local name="ripgrep-${this_tag}-${TARGET}"
+
     # The deployment directory is where the final archive will reside.
     # This path is known by the configuration.
     local out_dir="$(pwd)/deployment"
     mkdir -p "$out_dir"
-    # Find the correct (most recent) Cargo "out" directory. The out directory
-    # contains shell completion files and the man page.
-    local cargo_out_dir="$(cargo_out_dir "target/$TARGET")"
 
     # Copy the ripgrep binary and strip it.
-    cp "target/$TARGET/release/rg" "$staging/rg"
-    "${gcc_prefix}strip" "$staging/rg"
-    # Copy the licenses and README.
-    cp {README.md,UNLICENSE,COPYING,LICENSE-MIT} "$staging/"
-    # Copy documentation and man page.
-    cp {CHANGELOG.md,FAQ.md,GUIDE.md} "$staging/doc/"
-    if command -V a2x 2>&1 > /dev/null; then
-      # The man page should only exist if we have asciidoc installed.
-      cp "$cargo_out_dir/rg.1" "$staging/doc/"
-    fi
-    # Copy shell completion files.
-    cp "$cargo_out_dir"/{rg.bash,rg.fish,_rg.ps1} "$staging/complete/"
-    cp complete/_rg "$staging/complete/"
+    "${gcc_prefix}strip" "target/$TARGET/release/rg"
 
-    (cd "$tmpdir" && tar czf "$out_dir/$name.tar.gz" "$name")
-    rm -rf "$tmpdir"
+    tar czf "target/$TARGET/release/rg" "$out_dir/$name.tar.gz" "$name"
 }
 
 main() {

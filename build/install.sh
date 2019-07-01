@@ -13,7 +13,17 @@ set -ex
 install_rustup() {
     curl https://sh.rustup.rs -sSf \
       | sh -s -- -y --default-toolchain="$RUST_VERSION"
-    source /usr/local/cargo/env
+
+    # Linux
+    if [ -f /usr/local/cargo/env ]; then
+        source /usr/local/cargo/env
+    fi
+
+    # Mac
+    if [ -f $HOME/.cargo/env ]; then
+        source $HOME/.cargo/env
+    fi
+
     rustup default nightly
     rustc -V
     cargo -V

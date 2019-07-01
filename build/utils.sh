@@ -22,7 +22,7 @@ host() {
         Linux)
             echo x86_64-unknown-linux-gnu
             ;;
-        osx)
+        Darwin)
             echo x86_64-apple-darwin
             ;;
     esac
@@ -106,7 +106,7 @@ is_linux() {
 
 is_osx() {
     case "$AGENT_OS" in
-        osx) return 0 ;;
+        Darwin) return 0 ;;
         *)   return 1 ;;
     esac
 }

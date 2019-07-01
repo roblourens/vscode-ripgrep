@@ -53,6 +53,9 @@ gcc_prefix() {
         armhf)
             echo arm-linux-gnueabihf-
             ;;
+        aarch64)
+            echo aarch64-linux-gnu-
+            ;;
         *)
             return
             ;;

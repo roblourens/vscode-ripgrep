@@ -15,9 +15,8 @@ steps:
     git checkout $TREEISH
 - powershell: |
     Invoke-WebRequest https://win.rustup.rs -UseBasicParsing -OutFile rustup-init.exe
-    dir
-    ./rustup-init.exe -y --default-host $env:TARGET
-    set PATH=$env:PATH;C:\Users\appveyor\.cargo\bin
+    .\rustup-init.exe -y --default-host $env:TARGET
+    $env:PATH+=";C:\Users\appveyor\.cargo\bin"
 
     rustup default $env:RUST_VERSION
     rustc -V

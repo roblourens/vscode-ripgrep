@@ -4,7 +4,15 @@ parameters:
   rust_version: 'nightly'
 
 steps:
-- template: clone_ripgrep.yml
+- script: |
+    set -ex
+
+    REPO=$(node -p "require('./package.json').ripgrepRepo")
+    TREEISH=$(node -p "require('./package.json').ripgrepTreeish")
+    git clone https://github.com/${REPO}.git
+    cd ripgrep
+    git checkout $TREEISH
+  displayName: Clone Ripgrep
 - script: build/install.sh
   env:
     RUST_VERSION: ${{ parameters.rust_version }}

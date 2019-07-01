@@ -1,17 +1,41 @@
+# Based on https://github.com/BurntSushi/ripgrep/blob/master/appveyor.yml
+
 parameters:
   target: ''
   gcc_version: ''
   rust_version: 'nightly'
 
 steps:
-- template: clone_ripgrep.yml
-- script: build/install.sh
+- powershell: |
+    gci env:*
+    $REPO=node -p "require('./package.json').ripgrepRepo"
+    $TREEISH=node -p "require('./package.json').ripgrepTreeish"
+    git clone https://github.com/${REPO}.git
+    cd ripgrep
+    git checkout $TREEISH
+- powershell: |
+    curl -sSf -o rustup-init.exe https://win.rustup.rs/
+    rustup-init.exe -y --default-host $env:TARGET
+    set PATH=$env:PATH;C:\Users\appveyor\.cargo\bin
+
+    rustup default $env:RUST_VERSION
+    rustc -V
+    cargo -V
+
+    rustup target add $env:TARGET
   env:
     RUST_VERSION: ${{ parameters.rust_version }}
     TARGET: ${{ parameters.target }}
-    GCC_VERSION: ${{ parameters.gcc_version }}
   displayName: Install Rust
-- script: ../build/script.sh
+- powershell: |
+    $env:RUSTFLAGS='-C target-feature=+crt-static -Z unstable-options'
+    cargo build --release --features pcre2
+    mkdir staging
+    copy target\release\rg.exe staging
+    cd staging
+
+    7z a ../test.zip *
+    #appveyor PushArtifact ../%PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%-%TARGET%.zip
   workingDirectory: ripgrep
   env:
     TARGET: ${{ parameters.target }}

@@ -24,7 +24,7 @@ install_rustup() {
         source $HOME/.cargo/env
     fi
 
-    rustup default nightly
+    rustup default $RUST_VERSION
     rustc -V
     cargo -V
 }

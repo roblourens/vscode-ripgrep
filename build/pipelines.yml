@@ -36,7 +36,7 @@ jobs:
     - template: linux.yml
       parameters:
         target: x86_64-apple-darwin
-- job: Windows 64
+- job: Win_64
   pool:
     vmImage: VS2017-Win2016
   steps:
